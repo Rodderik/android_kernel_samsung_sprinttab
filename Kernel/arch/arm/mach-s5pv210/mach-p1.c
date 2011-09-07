@@ -1002,7 +1002,7 @@ static struct max8998_platform_data max8998_pdata = {
 	.irq_base	= IRQ_MAX8998_BASE,
 };
 
-struct platform_device sec_device_dpram = {
+static struct platform_device sec_device_dpram = {  //fix broken EF17 source
 	.name	= "dpram-device",
 	.id	= -1,
 };
@@ -7188,6 +7188,7 @@ static struct platform_device *crespo_devices[] __initdata = {
 #ifdef CONFIG_SND_S5P_RP
 	&s5p_device_rp,
 #endif
+	&sec_device_dpram, //fix broken EF17 source
 };
 
 unsigned int HWREV;
