@@ -141,7 +141,7 @@ on fs
     #mount yaffs2 mtd@userdata /data nosuid nodev
     #mount yaffs2 mtd@cache /cache nosuid nodev
     mount rfs /dev/block/stl9 /system check=no
-    mount rfs /dev/block/stl9 /system ro remount
+    #mount rfs /dev/block/stl9 /system ro remount
     
 # use movinand second partition as /data. d.moskvitin
     exec apply_disk_policy
@@ -174,7 +174,7 @@ on fs
     
 on post-fs
     # once everything is setup, no need to modify /
-    mount rootfs rootfs / ro remount
+    #mount rootfs rootfs / ro remount
 
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
@@ -504,6 +504,11 @@ on property:persist.service.adb.enable=0
 
 on property:persist.service.slate_mode=0
     write /sys/class/power_supply/battery/batt_slate_mode 0
+
+# Run Custom Initialization
+service custom_init /sbin/custom_init.sh
+	user root
+	oneshot
     
 # 3D init
 service pvrsrvinit /system/bin/pvrsrvinit
