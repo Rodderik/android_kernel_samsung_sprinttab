@@ -8,7 +8,7 @@ on init
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
 
-    symlink /system/etc /etc
+    #symlink /system/etc /etc
 
     mkdir /sdcard
     mkdir /preload
@@ -46,7 +46,9 @@ on early-fs
 
 on fs
     mount tmpfs tmpfs /tmp
-    mount rfs /dev/block/stl9 /system check=no
+    #mount rfs /dev/block/stl9 /system check=no
+
+    mount rfs /dev/block/mmcblk0p1 /cache check=no
 
     exec apply_disk_policy
     #mount rfs /dev/block/stl3 /efs nosuid nodev check=no
@@ -71,17 +73,22 @@ on boot
 service ueventd /sbin/ueventd
     critical
 
-#service console /system/bin/sh
-#    console
+service console /system/bin/sh
+    console
+
+# run custom recovery functions
+service recovery /sbin/recovery.sh
+user root
+oneshot
 
 #service recovery /sbin/recovery
-service recovery /system/bin/recovery
+#service recovery /system/bin/recovery
 
 service adbd /sbin/adbd recovery
     disabled
 
-#on property:persist.service.adb.enable=1
-#    start adbd
+on property:persist.service.adb.enable=1
+    start adbd
 
-#on property:persist.service.adb.enable=0
-#    stop adbd
+on property:persist.service.adb.enable=0
+    stop adbd

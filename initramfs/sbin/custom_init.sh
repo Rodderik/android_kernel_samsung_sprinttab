@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/sbin/sh
 # custom_init functions
 
 # Remount filesystems RW
