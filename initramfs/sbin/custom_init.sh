@@ -18,7 +18,7 @@ sync
 chmod 755 /sbin/*
 
 # Fix screwy ownerships
-for blip in conf default.prop fota.rc init init.goldfish.rc init.rc init.smdkc110.rc lib lpm.rc modules recovery.rc ueventd.rc res sbin
+for blip in default.prop fota.rc init init.goldfish.rc init.rc lib lpm.rc modules recovery.rc ueventd.rc res sbin
 do
 	chown root.system /$blip
 	chown root.system /$blip/*
@@ -27,28 +27,19 @@ done
 chown root.system /lib/modules/*
 chown root.system /res/images/*
 
-# setup tmpfs for su
-# DRockstar style
-#mkdir /sdx
-#mount -o size=30k -t tmpfs tmpfs /sdx
-#cat /sbin/su > /sdx/su
-#chmod 06755 /sdx/su
+# setup su
 chown root.root /sbin/su
 chmod 06755 /sbin/su
 # establish root in common system directories for 3rd party applications
 rm /system/bin/su
 rm /system/xbin/su
 rm /system/bin/jk-su
-#ln -s /sbin/su /system/bin/su
 cp -f /sbin/su /system/bin/su
-#ln -s /sbin/su /system/xbin/su
 cp -f /sbin/su /system/xbin/su
 chmod 06755 /system/bin/su
 chmod 06755 /system/xbin/su
-
 # remove su in problematic locations
 rm -rf /bin/su
-#rm -rf /sbin/su
 
 #Check and setup Superuser if missing
  if [ ! -f "/system/app/Superuser.apk" ] && [ ! -f "/data/app/Superuser.apk" ] && [[ ! -f "/data/app/com.noshufou.android.su"* ]]; then
@@ -79,4 +70,3 @@ chmod 644 /system/bin/profile
 # remount read only and continue
 mount -o remount,ro /dev/stl9 /system
 mount -o remount,ro / /
-
