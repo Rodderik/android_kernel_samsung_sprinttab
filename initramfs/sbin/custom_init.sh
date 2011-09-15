@@ -7,8 +7,7 @@
 /sbin/busybox mount -o remount,rw / /
 
 # Install busybox
-/sbin/busybox mkdir /bin
-/sbin/busybox --install -s /bin
+/sbin/busybox --install -s /sbin
 rm -rf /system/xbin/busybox
 ln -s /sbin/busybox /system/xbin/busybox
 #rm -rf /res

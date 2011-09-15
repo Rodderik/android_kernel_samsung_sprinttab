@@ -8,7 +8,7 @@ sysclktz 0
 loglevel 3
 
 # setup the global environment
-    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/xbin:/system/bin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_ROOT /system
@@ -140,6 +140,7 @@ on fs
     #mount yaffs2 mtd@system /system ro remount
     #mount yaffs2 mtd@userdata /data nosuid nodev
     #mount yaffs2 mtd@cache /cache nosuid nodev
+    mount ext4 /dev/block/stl9 /system noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     mount rfs /dev/block/stl9 /system check=no
     #mount rfs /dev/block/stl9 /system ro remount
     
@@ -147,6 +148,7 @@ on fs
     exec apply_disk_policy
     
     mkdir /data
+    mount ext4 /dev/block/mmcblk0p2 /data noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     mount rfs /dev/block/mmcblk0p2 /data nosuid nodev check=no
     chown system system /data
     chmod 0771 /data    
@@ -154,6 +156,7 @@ on fs
 
     
     mkdir /dbdata
+    mount ext4 /dev/block/stl10 /dbdata noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     mount rfs /dev/block/stl10 /dbdata nosuid nodev check=no
     chown system system /dbdata
     chmod 0771 /dbdata
@@ -201,6 +204,7 @@ on post-fs
 
     # Same reason as /data above
     mkdir /cache
+    mount ext4 /dev/block/mmcblk0p1 /cache noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     mount rfs /dev/block/mmcblk0p1 /cache nosuid nodev check=no
     chown system cache /cache
     chmod 0770 /cache
