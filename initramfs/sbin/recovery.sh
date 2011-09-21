@@ -4,7 +4,7 @@
 # Remount filesystem rw
 /sbin/busybox mount -o remount,rw / /
 
-# Install recovery busybox to /sbin
+# Install extra recovery files to /sbin
 /sbin/busybox ls /res/sbin | while read line
 do
   /sbin/busybox mv -f /res/sbin/$line /sbin/$line

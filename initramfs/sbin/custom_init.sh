@@ -7,10 +7,10 @@
 /sbin/busybox mount -o remount,rw / /
 
 # Install busybox
-/sbin/busybox --install -s /sbin
+#/sbin/busybox --install -s /sbin
 rm -rf /system/xbin/busybox
 ln -s /sbin/busybox /system/xbin/busybox
-#rm -rf /res
+rm -rf /res
 sync
 
 # Fix permissions in /sbin, just in case
