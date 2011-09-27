@@ -8,6 +8,7 @@ OUTNAME="p100kernel"
 
 rm $WDIR/p100kernel.tar.md5
 rm $WDIR/zImage
+rm $WDIR/recovery.bin
 
 # Temp work-around: .git folder causes kernel not to boot...we will revisit this soon
 mv $WDIR/.git $WDIR/RENAME_ME.git
@@ -23,6 +24,7 @@ mv $WDIR/RENAME_ME.git $WDIR/.git
 # Make Odin flashable .tar.md5 for now
 cd $WDIR
 cp $WDIR/Kernel/arch/arm/boot/zImage $WDIR/zImage
-tar -H ustar -c zImage > $OUTNAME.tar
+cp $WDIR/Kernel/arch/arm/boot/zImage $WDIR/recovery.bin
+tar -H ustar -c zImage recovery.bin > $OUTNAME.tar
 md5sum -t $OUTNAME.tar >> $OUTNAME.tar
 mv $OUTNAME.tar $OUTNAME.tar.md5
